@@ -68,9 +68,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'codebin_db',      # Nazwa bazy z docker-compose
-        'USER': 'student',         # Użytkownik z docker-compose
-        'PASSWORD': 'sekretne_haslo', # Hasło z docker-compose
+        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),          # Nazwa bazy
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),          # Użytkownik
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'haslo'),
         'HOST': 'db',              # Nazwa serwisu z docker-compose!
         'PORT': '5432',
     }
