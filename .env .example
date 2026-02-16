@@ -1,0 +1,10 @@
+# Plik przykładowy. Skopiuj go, zmień nazwę na .env i uzupełnij swoimi danymi!
+
+# Sekrety Django
+SECRET_KEY=kod_przykladowy
+DEBUG=True
+
+# Hasła do Bazy Danych
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=haslo123$$$
