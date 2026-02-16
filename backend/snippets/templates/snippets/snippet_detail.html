@@ -1,0 +1,29 @@
+{% extends 'snippets/base.html' %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'lista_kodow' %}" class="btn btn-outline-secondary mb-3">⬅ Wróć do listy</a>
+
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="m-0">{{ snippet.title }}</h3>
+            <span class="badge bg-warning text-dark">{{ snippet.language }}</span>
+        </div>
+        <div class="card-body p-0">
+            <pre class="m-0"><code class="language-{{ snippet.language }}" style="min-height: 200px;">
+{{ snippet.code }}
+            </code></pre>
+        </div>
+        <div class="card-footer text-muted">
+            Dodano: {{ snippet.created_at }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+{% endblock %}
