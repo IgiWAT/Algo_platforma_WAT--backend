@@ -54,3 +54,34 @@ def rejestracja(request):
         form = RejestracjaForm()
 
     return render(request, 'registration/rejestracja.html', {'form': form})
+
+@login_required
+def snippet_edit_view(request, pk):
+    snippet = get_object_or_404(Snippet, pk=pk)
+
+    if snippet.author != request.user:
+        raise PermissionDenied("Nie możesz edytować cudzego rozwiązania.")
+
+    if request.method == "POST":
+        form = SnippetForm(request.POST, instance=snippet)
+        if form.is_valid():
+            form.save()
+            return redirect('szczegoly_kodu', pk=snippet.pk)
+    else:
+        form = SnippetForm(instance=snippet)
+
+    return render(request, 'snippets/snippet_edit.html', {'form': form, 'tryb_edycji': True})
+
+
+@login_required
+def snippet_delete(request, pk):
+    snippet = get_object_or_404(Snippet, pk=pk)
+
+    if snippet.author != request.user:
+        raise PermissionDenied("Nie możesz edytować cudzego rozwiązania.")
+    
+    if request.method == "POST":
+        snippet.delete()
+        return redirect('lista_kodow')
+        
+    return render(request, 'snippets/snippet_confirm_delete.html', {'snippet': snippet})
