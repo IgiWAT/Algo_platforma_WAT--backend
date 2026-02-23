@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('<int:pk>/edytuj/', views.snippet_edit_view, name='edytuj_kod'),
     path('<int:pk>/usun/', views.snippet_delete, name='usun_kod'),
+
+    # --- Nowa ścieżka API ---
+    path('api/kody/', views.api_snippet_list, name='api_lista_kodow')
 ]

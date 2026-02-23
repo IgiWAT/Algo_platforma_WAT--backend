@@ -36,6 +36,7 @@ docker-compose exec web python manage.py createsuperuser
 ## Dostęp do aplikacji:
 Aplikacja główna: [localhost](http://localhost:8000/)
 Panel admina: [admin](http://localhost:8000/admin/)
+Formaty JSON: [JSON](http://localhost:8000/api/kody/) 
 
 ## Zatrzymanie serwera Docker
 ```bash
