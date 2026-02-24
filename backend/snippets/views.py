@@ -8,6 +8,8 @@ from django.core.exceptions import PermissionDenied
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import SnippetSerializer
+from rest_framework import viewsets
+from .serializers import SnippetSerializer
 
 
 @login_required
@@ -91,13 +93,14 @@ def snippet_delete(request, pk):
     return render(request, 'snippets/snippet_confirm_delete.html', {'snippet': snippet})
 
 # ----- Sekcja API -----
-@api_view(['GET'])
-def api_snippet_list(request):
-    # Ten widok będzie zwracał listę wszystkich kodów w formacie JSON(dla REACTa)
-    snippets = Snippet.objects.all().order_by("-created_at")
-
-    # Tłumaczymy obiekty na JSON (many=True bo to lista kodów)
-    serializer = SnippetSerializer(snippets, many=True)
-
-    # Zwracamy odpowiedź (DRF automatycznie zamieni to na JSON)
-    return Response(serializer.data)
+class SnippetViewSet(viewsets.ModelViewSet):
+    """
+    Ten jeden ViewSet automatycznie generuje nam:
+    - GET /api/kody/ (Lista wszystkich)
+    - POST /api/kody/ (Dodawanie nowego)
+    - GET /api/kody/5/ (Pobieranie jednego)
+    - PUT /api/kody/5/ (Edycja)
+    - DELETE /api/kody/5/ (Usuwanie)
+    """
+    queryset = Snippet.objects.all().order_by('-created_at')
+    serializer_class = SnippetSerializer
